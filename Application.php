@@ -334,6 +334,12 @@ class Application
      */
     public function add(JobInterface $job)
     {
+        $jobsFilter = $this->getConfig()->get('jobsFilter');
+
+        if ($jobsFilter != 'all' && stripos($jobsFilter, $job->getName()) === false) {
+            return $this;
+        }
+
         $worker = $this->getWorker()->getWorker();
 
         $this->jobs[] = $job;

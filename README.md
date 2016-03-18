@@ -10,8 +10,14 @@ It is recommended that you install the Gearman library [through composer](http:/
 
 ```json
 {
+    "repositories": [
+        {
+            "url": "https://github.com/valentinbora/yii2-gearman.git",
+            "type": "git"
+        }
+    ],
     "require": {
-       "shakura/yii2-gearman": "dev-master"
+       "valentinbora/yii2-gearman": "dev-master"
     }
 }
 ```

@@ -41,6 +41,11 @@ class Config implements Serializable
     private $user;
 
     /**
+     * @var string
+     */
+    private $jobsFilter;
+
+    /**
      * @var array
      */
     private $envVariables;
@@ -101,6 +106,9 @@ class Config implements Serializable
                     case 'class':
                         $this->setClass($value);
                         break;
+                    case 'jobsFilter':
+                        $this->setJobsFilter($value);
+                        break;
                     case 'envVariables':
                     case 'env_variables':
                         $this->setEnvVariables($value);
@@ -140,6 +148,9 @@ class Config implements Serializable
                 break;
             case 'class':
                 return $this->getClass();
+                break;
+            case 'jobsFilter':
+                return $this->getJobsFilter();
                 break;
             case 'envVariables':
             case 'env_variables':
@@ -291,6 +302,24 @@ class Config implements Serializable
     }
 
     /**
+     * @param string $jobsFilter
+     * @return $this
+     */
+    public function setJobsFilter($jobsFilter)
+    {
+        $this->jobsFilter = $jobsFilter;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJobsFilter()
+    {
+        return isset($this->jobsFilter) ? $this->jobsFilter : 'all';
+    }
+
+    /**
      * @param int $workerLifetime
      * @return $this
      */
@@ -355,6 +384,7 @@ class Config implements Serializable
             'servers' => $this->getServers(),
             'workerLifetime' => $this->getWorkerLifetime(),
             'autoUpdate' => $this->getAutoUpdate(),
+            'jobsFilter' => $this->getJobsFilter(),
             'user' => $this->getUser(),
             'envVariables' => $this->getEnvVariables()
         ]);

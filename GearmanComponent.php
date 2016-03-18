@@ -24,8 +24,10 @@ class GearmanComponent extends \yii\base\Component
     
     private $_process;
     
-    public function getApplication($id)
+    public function getApplication($id, $jobsFilter = 'all')
     {
+        $this->getConfig(['jobsFilter' => $jobsFilter]);
+
         if($this->_application === null) {
             $app = new Application($id, $this->getConfig(), $this->getProcess($id));
             foreach($this->jobs as $name => $job) {
@@ -52,7 +54,7 @@ class GearmanComponent extends \yii\base\Component
         return $this->_dispatcher;
     }
     
-    public function getConfig()
+    public function getConfig($params = array())
     {
         if($this->_config === null) {
             $servers = [];
@@ -69,6 +71,8 @@ class GearmanComponent extends \yii\base\Component
                 'user' => $this->user
             ]);
         }
+
+        $this->_config->set($params);
         
         return $this->_config;
     }

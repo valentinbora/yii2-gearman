@@ -17,9 +17,9 @@ class GearmanController extends Controller
     
     public $gearmanComponent = 'gearman';
     
-    public function actionStart($id)
+    public function actionStart($id, $jobs = 'all')
     {
-        $app = $this->getApplication($id);
+        $app = $this->getApplication($id, $jobs);
         $process = $app->getProcess($id);
         
         if ($process->isRunning()) {
@@ -85,10 +85,10 @@ class GearmanController extends Controller
         return array_merge(parent::options($id), $options);
     }
     
-    protected function getApplication($id)
+    protected function getApplication($id, $jobs = 'all')
     {
         $component = Yii::$app->get($this->gearmanComponent);
-        return $component->getApplication($id);
+        return $component->getApplication($id, $jobs);
     }
     
     protected function runApplication(Application $app)
