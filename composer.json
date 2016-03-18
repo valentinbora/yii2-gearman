@@ -1,18 +1,22 @@
 {
-    "name": "shakura/yii2-gearman",
+    "name": "valentinbora/yii2-gearman",
     "description": "Gearman handler for PHP",
     "keywords": ["yii", "extension"],
-    "homepage": "https://github.com/shakura/yii2-gearman",
+    "homepage": "https://github.com/valentinbora/yii2-gearman",
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
-        "email": "waclaw@shakura.ru",
-        "source": "https://github.com/shakura/yii2-gearman"
+        "email": "valentin@nexibeo.com",
+        "source": "https://github.com/valentinbora/yii2-gearman"
     },
     "authors": [
         {
             "name": "Waclaw Shakura",
             "email": "waclaw@shakura.ru"
+        },
+        {
+            "name": "Valentin Bora",
+            "email": "valentin@nexibeo.com"
         }
     ],
     "require": {
