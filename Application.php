@@ -336,7 +336,21 @@ class Application
     {
         $jobsFilter = $this->getConfig()->get('jobsFilter');
 
-        if ($jobsFilter != 'all' && stripos($jobsFilter, $job->getName()) === false) {
+        $add = true;
+
+        if ($jobsFilter != 'all') {
+            // If blacklisted, just don't add it
+            if (stripos($jobsFilter, 'not:' . $job->getName()) !== false) {
+                $add = false;
+            } else {
+                // If it's not in the whitelist, and the list does not contain `all`
+                if (stripos($jobsFilter, $job->getName()) === false && stripos($jobsFilter, 'all') === false) {
+                    $add = false;
+                }
+            }
+        }
+
+        if (!$add) {
             return $this;
         }
 

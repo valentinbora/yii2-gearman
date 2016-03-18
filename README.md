@@ -70,11 +70,16 @@ class SyncCalendar extends JobBase
 
 ```cmd
 yii gearman/start 1 [jobsFilter] // start the worker with unique id
+yii gearman/start 1 jobName,jobName2 // start the worker with unique id and whitelist two jobs
+yii gearman/start 1 jobName,not:jobName2 // start the worker with unique id, whitelist jobName and blacklist jobName2
+yii gearman/start 1 all,not:jobName2 // start the worker with unique id, whitelist all jobs but blacklist jobName2
 yii gearman/restart 1 // restart worker
 yii gearman/stop 1 // stop worker
 ```
 
 The jobsFilter optional parameter is a string of comma separated job names that you want to filter. If you don't specify it, all jobs available in the system will be available to the worker being started.
+
+The jobsFilter parameter also accepts a negation operator `not:` as a prefix to the job name, in order to blacklist that job type.
 
 ## Example using Dispatcher
 
