@@ -54,13 +54,13 @@ class Dispatcher
         $jobHandle = null;
         switch ($priority) {
             case self::LOW:
-                $jobHandle = $client->doLowBackground($name, self::serialize($data), $unique);
+                $jobHandle = $client->doLowBackground($name, json_encode($data->getParams()), $unique);
                 break;
             case self::HIGH:
-                $jobHandle = $client->doHighBackground($name, self::serialize($data), $unique);
+                $jobHandle = $client->doHighBackground($name, json_encode($data->getParams()), $unique);
                 break;
             default:
-                $jobHandle = $client->doBackground($name, self::serialize($data), $unique);
+                $jobHandle = $client->doBackground($name, json_encode($data->getParams()), $unique);
                 break;
         }
 
@@ -73,7 +73,7 @@ class Dispatcher
         if (null !== $this->logger) {
             $this->logger->info("Sent job \"{$jobHandle}\" to GearmanWorker");
         }
-        
+
         return $jobHandle;
     }
 
@@ -95,13 +95,13 @@ class Dispatcher
         $result = null;
         switch ($priority) {
             case self::LOW:
-                $result = $client->doLow($name, self::serialize($data), $unique);
+                $result = $client->doLow($name, json_encode($data->getParams()), $unique);
                 break;
             case self::HIGH:
-                $result = $client->doHigh($name, self::serialize($data), $unique);
+                $result = $client->doHigh($name, json_encode($data->getParams()), $unique);
                 break;
             default:
-                $result = $client->doNormal($name, self::serialize($data), $unique);
+                $result = $client->doNormal($name, json_encode($data->getParams()), $unique);
                 break;
         }
 
@@ -115,7 +115,7 @@ class Dispatcher
             $this->logger->debug("Job \"{$name}\" returned {$result}");
         }
 
-        return unserialize($result);
+        return json_decode($result, true);
     }
 
     /**
